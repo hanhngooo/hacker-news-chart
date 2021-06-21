@@ -19,7 +19,17 @@ const useStories = () => {
         throw Error(error)
       }
     }
+
+    //fetch ids every 60s
+    const intervalId = setInterval(() => {
+      fetchStoryIds()
+    }, 60000)
+
     fetchStoryIds()
+
+    return () => {
+      clearInterval(intervalId)
+    }
   }, [])
 
   //fetch actual stories with their ids
@@ -27,6 +37,7 @@ const useStories = () => {
     const fetchStories = async () => {
       if (storyIds.length > 0) {
         try {
+          //Promise.all handles chain of promises and returns an array of the results of those promises
           const response = await Promise.all(
             storyIds
               .slice(0, storiesAmount)
