@@ -41,8 +41,8 @@ function App() {
           <Chart stories={actualStories} />
         </div>
         <div className="stories-container">
-          {actualStories.map((story) => (
-            <Story story={story} />
+          {actualStories.map((story, index) => (
+            <Story story={story} key={index} />
           ))}
         </div>
       </main>
