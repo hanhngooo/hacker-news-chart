@@ -1,10 +1,10 @@
 import React from "react"
-import useStories from "./useStories"
 import { Scatter } from "react-chartjs-2"
+import "./Chart.css"
 
-const Chart = () => {
-  const { actualStories } = useStories()
-  const storiesData = actualStories
+const Chart = ({ stories }) => {
+  //data to pass in chart, mapping to new array with x,y properties, in ascending order of descendants
+  const storiesData = stories
     .map((story) => {
       return { x: story.descendants, y: story.score }
     })
@@ -18,11 +18,13 @@ const Chart = () => {
         showLine: true,
         fill: false,
         borderColor: "#d45087",
-        backgroundColor: "#a05195",
+        backgroundColor: "#f5adad",
       },
     ],
   }
+  // options sets axis labels
   const options = {
+    maintainAspectRatio: false,
     scales: {
       y: {
         ticks: {
@@ -50,12 +52,7 @@ const Chart = () => {
       },
     },
   }
-  console.log(storiesData)
-  return (
-    <div className="chart-container">
-      <Scatter data={data} height={70} options={options} />
-    </div>
-  )
+  return <Scatter data={data} height={600} options={options} />
 }
 
 export default Chart

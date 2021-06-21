@@ -1,3 +1,41 @@
-.App {
-  text-align: center;
+.container {
+  max-width: 100rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+.app-header-wrapper {
+  padding: 2rem 1rem;
+}
+.app-header {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(248, 250, 252);
+  border-bottom: 1px solid rgb(235, 240, 250);
+}
+h1,
+h2 {
+  margin: 0.8rem 0;
+}
+.app-header-title {
+  color: #d45087;
+}
+.app-header-date {
+  color: rgb(142, 142, 147);
+}
+
+.app-main-select {
+  padding: 2rem 1rem;
+}
+.app-main-select select {
+  width: 60px;
+  margin: 0 0.5rem;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.stories-container {
+  margin: 1rem auto;
+  padding: 0 1rem;
 }
