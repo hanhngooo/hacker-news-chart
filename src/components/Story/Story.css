@@ -1,0 +1,32 @@
+.story-container {
+  padding: 1rem;
+}
+.story-container:hover {
+  background-color: rgb(236, 246, 255);
+}
+
+.story-title {
+  margin: 0.5rem 0;
+}
+.story-title a {
+  text-decoration: none;
+  color: inherit;
+}
+.story-info {
+  color: rgb(142, 142, 147);
+  font-style: italic;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+}
+
+.story-stats {
+  display: flex;
+  margin-top: 0.5rem;
+}
+.story-stats-item {
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+}
