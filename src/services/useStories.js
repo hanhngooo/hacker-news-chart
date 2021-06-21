@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import { apiUrl } from "../../services/apiUrl"
+import { apiUrl } from "./apiUrl"
 
 const useStories = () => {
   const [storyIds, setStoryIds] = useState([])

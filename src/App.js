@@ -1,7 +1,7 @@
 import "./App.css"
 import Chart from "./components/Chart/Chart"
 import Story from "./components/Story/Story"
-import useStories from "./components/Chart/useStories"
+import useStories from "./services/useStories"
 
 function App() {
   // stories and change N of stories function from useStories Hook
