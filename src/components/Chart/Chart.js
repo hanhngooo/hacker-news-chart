@@ -1,6 +1,5 @@
 import React from "react"
 import { Scatter } from "react-chartjs-2"
-import "./Chart.css"
 
 const Chart = ({ stories }) => {
   //data to pass in chart, mapping to new array with x,y properties, in ascending order of descendants
@@ -22,6 +21,7 @@ const Chart = ({ stories }) => {
       },
     ],
   }
+
   // options sets axis labels
   const options = {
     maintainAspectRatio: false,
@@ -34,7 +34,7 @@ const Chart = ({ stories }) => {
         title: {
           display: true,
           text: "Score",
-          aline: "center",
+          align: "center",
           color: "#d45087",
         },
       },
@@ -46,13 +46,13 @@ const Chart = ({ stories }) => {
         title: {
           display: true,
           text: "Descendants",
-          aline: "center",
+          align: "center",
           color: "#d45087",
         },
       },
     },
   }
-  return <Scatter data={data} height={600} options={options} />
+  return <Scatter data={data} height={500} options={options} />
 }
 
 export default Chart

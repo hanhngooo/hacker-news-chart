@@ -14,8 +14,8 @@
   background-color: rgb(248, 250, 252);
   border-bottom: 1px solid rgb(235, 240, 250);
 }
-h1,
-h2 {
+.app-header-date h1,
+.app-header-title h2 {
   margin: 0.8rem 0;
 }
 .app-header-title {
@@ -34,7 +34,10 @@ h2 {
   padding: 0.2rem;
   cursor: pointer;
 }
-
+.chart-container {
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
 .stories-container {
   margin: 1rem auto;
   padding: 0 1rem;

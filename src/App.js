@@ -1,12 +1,22 @@
+import { useState } from "react"
 import "./App.css"
 import Chart from "./components/Chart/Chart"
 import Story from "./components/Story/Story"
 import useStories from "./services/useStories"
-
 function App() {
-  // stories and change N of stories function from useStories Hook
-  const { actualStories, changeAmount } = useStories()
-  const amountOptions = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+  // stories function from useStories
+  const { actualStories, changeAmount, isLoading } = useStories()
+  const [message, setMessage] = useState(false)
+
+  const handleOnchange = (value) => {
+    let amountValue = parseInt(value)
+    if (amountValue > 50 || amountValue < 2) {
+      setMessage(true)
+    } else {
+      changeAmount(amountValue)
+      setMessage(false)
+    }
+  }
 
   return (
     <div className="app">
@@ -19,26 +29,23 @@ function App() {
       </header>
       <main className="app-main container">
         <div className="app-main-select">
-          {/* select button to change N of stories */}
           <div>
             {" "}
             Number of Stories
             <span>
-              <select
+              <input
                 defaultValue={10}
-                onChange={(e) => changeAmount(e.target.value)}
-              >
-                {amountOptions.map((option, index) => (
-                  <option value={option} key={index}>
-                    {option}
-                  </option>
-                ))}
-              </select>
+                type="number"
+                placeholder="2-50"
+                onChange={(e) => handleOnchange(e.target.value)}
+              />
             </span>
+            {message && <div> Value should be from 2 to 50 </div>}
           </div>
         </div>
         <div className="chart-container">
-          <Chart stories={actualStories} />
+          {isLoading && <div>Loading...</div>}
+          {!message && <Chart stories={actualStories} />}
         </div>
         <div className="stories-container">
           {actualStories.map((story, index) => (

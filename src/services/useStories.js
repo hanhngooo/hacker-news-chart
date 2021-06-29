@@ -3,18 +3,26 @@ import axios from "axios"
 import { apiUrl } from "./apiUrl"
 
 const useStories = () => {
-  const [storyIds, setStoryIds] = useState([])
   const [actualStories, setActualStories] = useState([])
   const [storiesAmount, setStoriesAmount] = useState(10) //N of stories, 10 by default
+  const [isLoading, setIsLoading] = useState(false)
 
-  //fetch story IDs
+  // fetch story IDs
   useEffect(() => {
     const fetchStoryIds = async () => {
+      setIsLoading(true)
       try {
         const response = await axios.get(
           `${apiUrl}/topstories.json?print=pretty`
         )
-        setStoryIds(response.data)
+        //Promise.all runs a chain of requests as a chain of promises and returns an array of results
+        const storiesResponse = await Promise.all(
+          response.data
+            .slice(0, storiesAmount)
+            .map((id) => axios.get(`${apiUrl}/item/${id}.json?print=pretty`))
+        )
+        setActualStories(storiesResponse.map((res) => res.data))
+        setIsLoading(false)
       } catch (error) {
         throw Error(error)
       }
@@ -27,36 +35,22 @@ const useStories = () => {
 
     fetchStoryIds()
 
+    //runs when the component is removed from the UI, cleans the timer (React does not clean setInterval)to spare up resources and prevent memory leaks
     return () => {
       clearInterval(intervalId)
     }
-  }, [])
-
-  //fetch actual stories with their ids
-  useEffect(() => {
-    const fetchStories = async () => {
-      if (storyIds.length > 0) {
-        try {
-          //Promise.all handles chain of promises and returns an array of the results of those promises
-          const response = await Promise.all(
-            storyIds
-              .slice(0, storiesAmount)
-              .map((id) => axios.get(`${apiUrl}/item/${id}.json?print=pretty`))
-          )
-          setActualStories(response.map((res) => res.data))
-        } catch (error) {
-          throw Error(error)
-        }
-      }
-    }
-    fetchStories()
-  }, [storiesAmount, storyIds])
+  }, [storiesAmount])
 
   // change N of stories function
   const changeAmount = (amount) => {
     setStoriesAmount(amount)
   }
-  return { actualStories, changeAmount }
+
+  return {
+    actualStories,
+    changeAmount,
+    isLoading,
+  }
 }
 
 export default useStories
